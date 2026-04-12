@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
 
     
 
-    public void TakeDamage(int damage) { 
+    public void TakeDamage(int damage) 
+    { 
         int finalDamage = Mathf.Max(0, damage - block);
         block = Mathf.Max(0, block - damage);
         health -= finalDamage;
