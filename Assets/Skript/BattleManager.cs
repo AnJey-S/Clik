@@ -20,25 +20,28 @@ public class BattleManager : MonoBehaviour
     //Метод использования карты
     public void PlayCard(Card card)
     {
-        if (energy != 0)
-        {
-            if (currentState != TurnState.PlayerTurn) return; //Проверка условий использования карты (чей ход)
-            if (hand.Count == 0) return; //В руке есть карты
-            if (energy < card.cost) return; //Хватает энергии
+        if (currentState != TurnState.PlayerTurn) return; //Проверка условий использования карты (чей ход)
+        if (hand.Count == 0) return; //В руке есть карты
+        if (energy < card.cost) return; //Хватает энергии
 
-            energy -= card.cost; //Учёт стоимости карты
-            hand.Remove(card); //Удаление карты из списка
-            card.Use(player, enemy); //Использование метода карты
+        energy -= card.cost; //Учёт стоимости карты
+        hand.Remove(card); //Удаление карты из списка
+        card.Use(player, enemy); //Использование метода карты
+        discardPile.Add(card); //Перемещение карты в сброс
 
-            CardButton btn = FindCardButton(card); //Удаление объекта со сцены 
-            if (btn != null)
-                btn.DestroySelf();
-        }
-        else
-        {
+        Debug.Log("Энергии: " + energy);
+        Debug.Log("Карт в колоде набора: " + drawPile.Count);
+        Debug.Log("Карт в руке: " + hand.Count);
+        Debug.Log("Карт в колоде сброса: " + discardPile.Count);
+
+        CardButton btn = FindCardButton(card); //Удаление карты со сцены 
+        if (btn != null)
+            btn.DestroySelf();
+
+        if (energy == 0) //Энергия закончилась
             EndPlayerTurn();
-        }
     }
+
     CardButton FindCardButton(Card card)
     {
         CardButton[] buttons = FindObjectsOfType<CardButton>();
@@ -49,7 +52,6 @@ public class BattleManager : MonoBehaviour
         }
         return null;
     }
-
 
     void Start()
     {
@@ -66,16 +68,17 @@ public class BattleManager : MonoBehaviour
 
         
     }
+
     //Создание карт в колоде (начальных карт)
     void CreateDeck()
     {
         for (int i = 0; i < 5; i++)
         {
             Card.AttackCard card = new Card.AttackCard(); //Создаётся экземпляр класса карты, задаются её значения
-            card.cardName = "Attack"; // и добавляется в колоду
+            card.cardName = "Attack";
             card.cost = 1;
             card.damage = 6;
-            drawPile.Add(card);
+            drawPile.Add(card); // и добавляется в колоду
         }
         for (int i = 0; i < 3; i++)
         {
@@ -133,9 +136,10 @@ public class BattleManager : MonoBehaviour
         energy = 3;
         DrawCards(5 - hand.Count);
         Debug.Log("Ход игрока");
-        
+
     }
-    void EnemyTurn()//Параметры хода противника
+
+    void EnemyTurn() //Параметры хода противника
     {
         Debug.Log("Ход врага");
         enemy.Attak(player);
@@ -144,8 +148,16 @@ public class BattleManager : MonoBehaviour
 
     public void EndPlayerTurn() //Передача хода противнику
     {
-        discardPile.AddRange(hand);
-        hand.Clear();
+        discardPile.AddRange(hand); //Добавление карт из руки в сброс
+
+        foreach (Card card in hand) //Для каждой карты в руке:
+        {
+            CardButton btn = FindCardButton(card); //Удаление карты со сцены 
+            if (btn != null)
+                btn.DestroySelf();
+        }
+        hand.Clear(); //Очищение руки
+
         currentState = TurnState.EnemyTurn;
         EnemyTurn();
 
