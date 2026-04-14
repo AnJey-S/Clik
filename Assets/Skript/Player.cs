@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int health = 50;
+    private int health = 50;
     public int block;
     public void GainBlock (int amount)
     {

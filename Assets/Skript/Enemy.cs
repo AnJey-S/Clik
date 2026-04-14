@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int health = 50;
-    
-    public void TakeDamage(int damage) 
+    private int health = 50;
+    public int poisonedTime = 0;
+    public int stunTime = 0;
+
+    public int Health { get => health; set => health = value; }
+
+    public void TakeDamage(int damage)
     {
         health -= damage;
         Debug.Log("ХП врага: " + health);
@@ -13,4 +17,20 @@ public class Enemy : MonoBehaviour
     {
         player.TakeDamage(5);
     }
+    public void poisoned(int time)
+    {
+        TakeDamage(time);
+        
+    }
+    public void poisonTime()
+    {
+        poisonedTime += 5;
+    }
+
+    public void stunned(int time)
+    {
+        stunTime = 2;
+
+    }
+
 }

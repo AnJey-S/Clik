@@ -1,4 +1,6 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -8,7 +10,30 @@ public class BattleManager : MonoBehaviour
 {
     public Player player; //Создание экземпляров классов
     public Enemy enemy;
+    public int[] cardAmount = new int[14];
     
+    void Start()
+    {
+        cardAmount[0] = 5;
+        cardAmount[1] = 3;
+        cardAmount[2] = 1;
+        cardAmount[3] = 1;
+        cardAmount[4] = 1;
+        CreateDeck();
+        Shuffle(drawPile);
+        currentState = TurnState.PlayerTurn;
+        StartPlayerTurn();
+        RectTransform handRT = handArea.GetComponent<RectTransform>();
+        handRT.localScale = Vector3.one;
+
+        // Уничтожаем ContentSizeFitter если он есть
+        ContentSizeFitter csf = handArea.GetComponent<ContentSizeFitter>();
+        if (csf != null) Destroy(csf);
+
+
+    }
+    
+
     public enum TurnState
     {
         PlayerTurn,
@@ -40,6 +65,7 @@ public class BattleManager : MonoBehaviour
 
         if (energy == 0) //Энергия закончилась
             EndPlayerTurn();
+        
     }
 
     CardButton FindCardButton(Card card)
@@ -53,39 +79,51 @@ public class BattleManager : MonoBehaviour
         return null;
     }
 
-    void Start()
-    {
-        CreateDeck(); 
-        Shuffle(drawPile);
-        currentState = TurnState.PlayerTurn;
-        StartPlayerTurn();
-        RectTransform handRT = handArea.GetComponent<RectTransform>();
-        handRT.localScale = Vector3.one;
-
-        // Уничтожаем ContentSizeFitter если он есть
-        ContentSizeFitter csf = handArea.GetComponent<ContentSizeFitter>();
-        if (csf != null) Destroy(csf);
-
-        
-    }
+    
 
     //Создание карт в колоде (начальных карт)
     void CreateDeck()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < cardAmount[0]; i++)
         {
             Card.AttackCard card = new Card.AttackCard(); //Создаётся экземпляр класса карты, задаются её значения
             card.cardName = "Attack";
             card.cost = 1;
-            card.damage = 6;
+            card.damage = 8;
+            
             drawPile.Add(card); // и добавляется в колоду
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < cardAmount[1]; i++)
         {
             Card.BlockCard card = new Card.BlockCard();
             card.cardName = "Block";
             card.cost = 1;
             card.block = 10;
+            
+            drawPile.Add(card);
+        }
+        for (int i = 0; i < cardAmount[2]; i++)
+        {
+            Card.DaringAttackCard card = new Card.DaringAttackCard();
+            card.cardName = "Daring Attack";
+            card.cost = 1;
+            card.damage = 12;
+
+            drawPile.Add(card);
+        }
+        for (int i = 0; i < cardAmount[3]; i++)
+        {
+            Card.potionCard card = new Card.potionCard();
+            card.cardName = "Potion";
+            card.cost = 1;
+
+            drawPile.Add(card);
+        }
+        for (int i = 0; i < cardAmount[4]; i++)
+        {
+            Card.stunCard card = new Card.stunCard();
+            card.cardName = "Stun";
+            card.cost = 2;
             drawPile.Add(card);
         }
     }
@@ -98,8 +136,12 @@ public class BattleManager : MonoBehaviour
         }
     }
     [SerializeField] GameObject cardPrefab; //Инициализация объектов на сцене (связанных с картами)
-    
     [SerializeField] Transform handArea;
+    [SerializeField] TMP_Text enemyText;
+    private void Update()
+    {
+        enemyText.text = enemy.Health.ToString();
+    }
     void DrawCards(int amount) //Выдаёт карты в руку
     {
         for (int i = 0; i < amount; i++)
@@ -141,8 +183,19 @@ public class BattleManager : MonoBehaviour
 
     void EnemyTurn() //Параметры хода противника
     {
+        
         Debug.Log("Ход врага");
-        enemy.Attak(player);
+        if (enemy.stunTime == 0)
+        {
+            enemy.Attak(player);
+            if (enemy.poisonedTime != 0)
+            {
+                enemy.poisoned(enemy.poisonedTime);
+                Debug.Log("Отравление " + enemy.poisonedTime);
+                enemy.poisonedTime--;
+            }
+            
+        }
         EndEnemyTurn();
     }
 
@@ -173,6 +226,4 @@ public class BattleManager : MonoBehaviour
     public List<Card> discardPile = new List<Card>(); //Сброс
     public int energy = 3;
     public int maxHandSize = 5;
-    
-
 }
