@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class CardButton : MonoBehaviour
 {
     public BattleManager battleManager;
+    public RewardUI rewardUI;
     public Card card;
+    
 
     [SerializeField] TMP_Text text;
 
@@ -22,7 +24,12 @@ public class CardButton : MonoBehaviour
         battleManager = manager;
         text.text = card.cardName;
     }
-
+    public void SetupReward(Card newCard, RewardUI manager)
+    {
+        card = newCard;
+        rewardUI = manager;
+        text.text = card.cardName;
+    }
     public Card GetCard()
     {
         return card;

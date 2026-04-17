@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-public abstract class Card
+public abstract class Card : ScriptableObject
 {
     public string cardName;
     public int cost;
@@ -14,12 +14,12 @@ public abstract class Card
         {
             enemy.TakeDamage(damage);
         }
-        
+
     }
     public class BlockCard : Card
     {
         public int block;
-        
+
         public override void Use(Player player, Enemy enemy)
         {
             player.GainBlock(block);
@@ -28,8 +28,8 @@ public abstract class Card
     public class DaringAttackCard : Card
     {
         public int damage = 12;
-        
-        public override void Use (Player player, Enemy enemy)
+
+        public override void Use(Player player, Enemy enemy)
         {
             enemy.TakeDamage(damage);
             player.TakeDamage(2);
@@ -51,5 +51,5 @@ public abstract class Card
         }
     }
 
-    
+
 }

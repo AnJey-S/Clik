@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public GameManager gameManager;
     private int health = 50;
     public int poisonedTime = 0;
     public int stunTime = 0;
@@ -20,7 +21,7 @@ public class Enemy : MonoBehaviour
     public void poisoned(int time)
     {
         TakeDamage(time);
-        
+
     }
     public void poisonTime()
     {
@@ -32,5 +33,12 @@ public class Enemy : MonoBehaviour
         stunTime = 2;
 
     }
+    public void Death()
+    {
+        Debug.Log("Он умер");
+        Destroy(gameObject);
+        gameManager.EnterRewardState();
+    }
+
 
 }

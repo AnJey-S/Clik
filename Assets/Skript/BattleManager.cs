@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     public Player player; //Создание экземпляров классов
     public Enemy enemy;
     public int[] cardAmount = new int[14];
-    
+
     void Start()
     {
         cardAmount[0] = 5;
@@ -32,16 +32,16 @@ public class BattleManager : MonoBehaviour
 
 
     }
-    
+
 
     public enum TurnState
     {
         PlayerTurn,
         EnemyTurn
     }
-    
+
     public TurnState currentState; //В переменную сохраняется текущий ход (игрок или противник)
-    
+
     //Метод использования карты
     public void PlayCard(Card card)
     {
@@ -65,7 +65,10 @@ public class BattleManager : MonoBehaviour
 
         if (energy == 0) //Энергия закончилась
             EndPlayerTurn();
-        
+        if (enemy.Health <= 0)
+        {
+            enemy.Death();
+        }
     }
 
     CardButton FindCardButton(Card card)
@@ -79,7 +82,7 @@ public class BattleManager : MonoBehaviour
         return null;
     }
 
-    
+
 
     //Создание карт в колоде (начальных карт)
     void CreateDeck()
@@ -90,7 +93,7 @@ public class BattleManager : MonoBehaviour
             card.cardName = "Attack";
             card.cost = 1;
             card.damage = 8;
-            
+
             drawPile.Add(card); // и добавляется в колоду
         }
         for (int i = 0; i < cardAmount[1]; i++)
@@ -99,7 +102,7 @@ public class BattleManager : MonoBehaviour
             card.cardName = "Block";
             card.cost = 1;
             card.block = 10;
-            
+
             drawPile.Add(card);
         }
         for (int i = 0; i < cardAmount[2]; i++)
@@ -162,11 +165,11 @@ public class BattleManager : MonoBehaviour
 
             GameObject obj = Instantiate(cardPrefab, handArea); //Создание объектов карт на сцене
 
-            
+
             RectTransform rt = obj.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(160, 220);
             rt.localScale = Vector3.one;
-            
+
             CardButton btn = obj.GetComponent<CardButton>();
             if (btn != null)
                 btn.Setup(card, this);
@@ -183,7 +186,7 @@ public class BattleManager : MonoBehaviour
 
     void EnemyTurn() //Параметры хода противника
     {
-        
+
         Debug.Log("Ход врага");
         if (enemy.stunTime == 0)
         {
@@ -194,7 +197,7 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("Отравление " + enemy.poisonedTime);
                 enemy.poisonedTime--;
             }
-            
+
         }
         EndEnemyTurn();
     }

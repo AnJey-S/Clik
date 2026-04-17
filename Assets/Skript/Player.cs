@@ -4,17 +4,17 @@ public class Player : MonoBehaviour
 {
     private int health = 50;
     public int block;
-    public void GainBlock (int amount)
+    public void GainBlock(int amount)
     {
         block += amount;
     }
-    
-    
 
-    
 
-    public void TakeDamage(int damage) 
-    { 
+
+
+
+    public void TakeDamage(int damage)
+    {
         int finalDamage = Mathf.Max(0, damage - block);
         block = Mathf.Max(0, block - damage);
         health -= finalDamage;
