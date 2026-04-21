@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameManager gameManager;
-    private int health = 50;
+    private int health = 100;
     public int poisonedTime = 0;
     public int stunTime = 0;
 
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
         Debug.Log("ХП врага: " + health);
     }
-    public void Attak(Player player)
+    public void Attack(Player player)
     {
         player.TakeDamage(5);
     }

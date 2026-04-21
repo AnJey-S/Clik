@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public Player player; //Создание экземпляров классов
     public Enemy enemy;
     public int[] cardAmount = new int[14];
+    public bool energyWarning = false; //Флаг для появления предупреждения о нехватке энергии
 
     void Start()
     {
@@ -45,19 +46,26 @@ public class BattleManager : MonoBehaviour
     //Метод использования карты
     public void PlayCard(Card card)
     {
+        energyWarning = false; //Для каждой карты изначально (до попытки сыграть ее) нет предупреждения по энергии
         if (currentState != TurnState.PlayerTurn) return; //Проверка условий использования карты (чей ход)
-        if (hand.Count == 0) return; //В руке есть карты
-        if (energy < card.cost) return; //Хватает энергии
+        if (hand.Count == 0) return; //В руке нет карт
+        if (energy < card.cost) //Не хватает энергии
+        {
+            energyWarning = true;
+            return;
+        }
 
         energy -= card.cost; //Учёт стоимости карты
         hand.Remove(card); //Удаление карты из списка
         card.Use(player, enemy); //Использование метода карты
         discardPile.Add(card); //Перемещение карты в сброс
 
-        Debug.Log("Энергии: " + energy);
-        Debug.Log("Карт в колоде набора: " + drawPile.Count);
-        Debug.Log("Карт в руке: " + hand.Count);
-        Debug.Log("Карт в колоде сброса: " + discardPile.Count);
+        //Debug.Log("Энергии: " + energy);
+        //Debug.Log("Карт в колоде набора: " + drawPile.Count);
+        //Debug.Log("Карт в руке: " + hand.Count);
+        //Debug.Log("Карт в колоде сброса: " + discardPile.Count);
+        Debug.Log("Block: " + player.Block);
+        Debug.Log("player HP: " + player.Health);
 
         CardButton btn = FindCardButton(card); //Удаление карты со сцены 
         if (btn != null)
@@ -65,10 +73,12 @@ public class BattleManager : MonoBehaviour
 
         if (energy == 0) //Энергия закончилась
             EndPlayerTurn();
+
         if (enemy.Health <= 0)
-        {
             enemy.Death();
-        }
+
+        if (player.Health <= 0) //Для DaringAttack -> ход игрока снимает HP игрока
+            player.Death();
     }
 
     CardButton FindCardButton(Card card)
@@ -101,7 +111,7 @@ public class BattleManager : MonoBehaviour
             Card.BlockCard card = new Card.BlockCard();
             card.cardName = "Block";
             card.cost = 1;
-            card.block = 10;
+            card.block = 5;
 
             drawPile.Add(card);
         }
@@ -109,7 +119,7 @@ public class BattleManager : MonoBehaviour
         {
             Card.DaringAttackCard card = new Card.DaringAttackCard();
             card.cardName = "Daring Attack";
-            card.cost = 1;
+            card.cost = 2;
             card.damage = 12;
 
             drawPile.Add(card);
@@ -140,11 +150,21 @@ public class BattleManager : MonoBehaviour
     }
     [SerializeField] GameObject cardPrefab; //Инициализация объектов на сцене (связанных с картами)
     [SerializeField] Transform handArea;
-    [SerializeField] TMP_Text enemyText;
+    [SerializeField] TMP_Text enemyHealthText;
+    [SerializeField] TMP_Text playerHealthText;
+    [SerializeField] TMP_Text playerEnergyText;
+    [SerializeField] TMP_Text energyWarningText;
+
     private void Update()
     {
-        enemyText.text = enemy.Health.ToString();
+        enemyHealthText.text = "HP: " + enemy.Health.ToString();
+        playerHealthText.text = "HP: " + player.Health.ToString();
+        if (player.Block != 0)
+            playerHealthText.text += " + " + player.Block.ToString();
+        playerEnergyText.text = "Энергия: " + energy.ToString();
+        energyWarningText.text = (energyWarning) ? "Не хватает энергии!" : "";
     }
+
     void DrawCards(int amount) //Выдаёт карты в руку
     {
         for (int i = 0; i < amount; i++)
@@ -190,7 +210,11 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Ход врага");
         if (enemy.stunTime == 0)
         {
-            enemy.Attak(player);
+            enemy.Attack(player);
+
+            if (player.Health <= 0) //Смерть игрока
+                player.Death();
+
             if (enemy.poisonedTime != 0)
             {
                 enemy.poisoned(enemy.poisonedTime);
