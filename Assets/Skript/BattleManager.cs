@@ -197,6 +197,10 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("Отравление " + enemy.poisonedTime);
                 enemy.poisonedTime--;
             }
+            else
+            {
+                enemy.stunTime--; // ← добавить
+            }
 
         }
         EndEnemyTurn();

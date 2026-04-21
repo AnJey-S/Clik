@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class CardButton : MonoBehaviour
 {
-    public BattleManager battleManager;
-    public RewardUI rewardUI;
-    public Card card;
+    private BattleManager battleManager;
+    private RewardUI rewardUI;
+    private Card card;
     
 
     [SerializeField] TMP_Text text;
@@ -37,7 +37,10 @@ public class CardButton : MonoBehaviour
 
     public void OnClick()
     {
-        battleManager.PlayCard(card);
+        if (battleManager != null)
+            battleManager.PlayCard(card);
+        else if (rewardUI != null)
+            rewardUI.SelectCard(card);
     }
 
     public void DestroySelf()

@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-public abstract class Card : ScriptableObject
+public abstract class Card
 {
     public string cardName;
     public int cost;
