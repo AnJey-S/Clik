@@ -102,7 +102,7 @@ public class BattleManager : MonoBehaviour
             Card.AttackCard card = new Card.AttackCard(); //Создаётся экземпляр класса карты, задаются её значения
             card.cardName = "Attack";
             card.cost = 1;
-            card.damage = 8;
+            card.damage = 10;
 
             drawPile.Add(card); // и добавляется в колоду
         }
@@ -120,7 +120,7 @@ public class BattleManager : MonoBehaviour
             Card.DaringAttackCard card = new Card.DaringAttackCard();
             card.cardName = "Daring Attack";
             card.cost = 2;
-            card.damage = 12;
+            card.damage = 15;
 
             drawPile.Add(card);
         }
@@ -208,25 +208,26 @@ public class BattleManager : MonoBehaviour
     {
 
         Debug.Log("Ход врага");
+
+        if (enemy.poisonedTime != 0)
+        {
+            enemy.poisoned(enemy.poisonedTime);
+            Debug.Log("Отравление " + enemy.poisonedTime);
+            enemy.poisonedTime--;
+
+        }
         if (enemy.stunTime == 0)
         {
             enemy.Attack(player);
 
             if (player.Health <= 0) //Смерть игрока
                 player.Death();
-
-            if (enemy.poisonedTime != 0)
-            {
-                enemy.poisoned(enemy.poisonedTime);
-                Debug.Log("Отравление " + enemy.poisonedTime);
-                enemy.poisonedTime--;
-            }
-            else
-            {
-                enemy.stunTime--; // ← добавить
-            }
-
         }
+        else
+        {
+            enemy.stunTime--; // ← добавить
+        }
+
         EndEnemyTurn();
     }
 

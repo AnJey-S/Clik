@@ -27,12 +27,12 @@ public abstract class Card
     }
     public class DaringAttackCard : Card
     {
-        public int damage = 12;
+        public int damage = 15;
 
         public override void Use(Player player, Enemy enemy)
         {
             enemy.TakeDamage(damage);
-            player.TakeDamage(2);
+            player.TakeDamage(5);
         }
     }
     public class potionCard : Card
