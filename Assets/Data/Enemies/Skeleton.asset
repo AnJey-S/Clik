@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9045b2fa81f50d245901b14d6f335ca7, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  prefab: {fileID: 0}
+  prefab: {fileID: 1362549047665721992, guid: 724b59696e8d47d4a8ff8fceb04fc0e9, type: 3}
   enemyName: "\u0421\u043A\u0435\u043B\u0435\u0442"
   maxHP: 45
   sprite: {fileID: -4383628081570246977, guid: e80dcb2bd1952c04897f1d8b92412949, type: 3}

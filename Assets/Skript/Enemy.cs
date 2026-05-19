@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         player = playerRef;
         health = data.maxHP;
         GetComponent<SpriteRenderer>().sprite = data.sprite;
-        healthText.text = $"HP: {health}";
+        //healthText.text = $"HP: {health}";
         ChooseIntention();
     }
 

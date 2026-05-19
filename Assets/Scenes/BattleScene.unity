@@ -696,6 +696,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1233504120}
   - component: {fileID: 1233504119}
+  - component: {fileID: 1233504123}
+  - component: {fileID: 1233504122}
+  - component: {fileID: 1233504121}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -715,10 +718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46065f0288118349a76546f502337a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
-  player: {fileID: 0}
-  enemySpawnPoint: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  playerSpawnPoint: {fileID: 0}
+  enemySpawnPoint: {fileID: 1687189088}
+  playerPrefab: {fileID: 4487166032250225330, guid: 86a5ca49928e78c478ad79c333f19bc4, type: 3}
+  playerSpawnPoint: {fileID: 950610481}
   energy: 3
   energyWarning: 0
 --- !u!4 &1233504120
@@ -736,6 +738,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233504121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233504118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93d5082670f4b245ab94818ec34ef31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
+  enemyHealthText: {fileID: 0}
+  playerHealthText: {fileID: 0}
+  playerEnergyText: {fileID: 0}
+  energyWarningText: {fileID: 0}
+--- !u!114 &1233504122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233504118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f8101e189a31848bbc02e7c762accf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurnManager
+--- !u!114 &1233504123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233504118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f07b3e6222aef44854b364be4cb628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeckManager
+  cardPrefab: {fileID: 3345464678220760662, guid: f86afed9720673349812070f2ce24480, type: 3}
+  handArea: {fileID: 453688819}
 --- !u!1 &1403048543
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,5 +923,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1233504120}
   - {fileID: 1403048547}
-  - {fileID: 950610481}
   - {fileID: 1687189088}
+  - {fileID: 950610481}

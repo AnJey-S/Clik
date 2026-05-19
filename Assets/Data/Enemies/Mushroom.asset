@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9045b2fa81f50d245901b14d6f335ca7, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  prefab: {fileID: 1362549047665721992, guid: 724b59696e8d47d4a8ff8fceb04fc0e9, type: 3}
   enemyName: "\u0420\u043E\u043C\u0430\u0448\u0435\u0447\u043A\u0430"
   maxHP: 35
   sprite: {fileID: 0}
