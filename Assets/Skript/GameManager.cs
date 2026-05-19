@@ -28,27 +28,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"GameManager Awake. Instance exists: {Instance != null}");
         if (Instance != null)
         {
-            Debug.Log("Destroying duplicate GameManager");
             Destroy(gameObject);
             return;
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Заполняем колоду только один раз при старте
         if (playerDeck.Count == 0)
             playerDeck.AddRange(startingDeck);
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        
+
     }
     public void LoadMap()
     {
