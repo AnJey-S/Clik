@@ -48,6 +48,7 @@ public class TurnManager : MonoBehaviour
         StartPlayerTurn();
     }
 
+    
     public void StartPlayerTurn()
     {
         battleManager.energy = GameManager.Instance.HasBuff(PlayerBuffType.ExtraEnergy) ? 4 : 3;
@@ -83,9 +84,13 @@ public class TurnManager : MonoBehaviour
             SceneManager.LoadScene("GameOverScene");
     }
 
-    public void CheckEnemyDeath()
+    public bool CheckEnemyDeath()
     {
         if (enemy.Health <= 0)
+        {
             enemy.Death();
+            return true;
+        }
+        return false;
     }
 }

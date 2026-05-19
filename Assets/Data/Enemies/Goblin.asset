@@ -15,7 +15,7 @@ MonoBehaviour:
   prefab: {fileID: 1362549047665721992, guid: 724b59696e8d47d4a8ff8fceb04fc0e9, type: 3}
   enemyName: "\u0413\u043E\u0431\u043B\u0438\u043D"
   maxHP: 30
-  sprite: {fileID: 0}
+  sprite: {fileID: -6718473375085416412, guid: 467e1f40919036348b1bd07f812156fd, type: 3}
   attackDamage: 8
   doubleAttackDamage: 8
   possibleIntensions: 0000000003000000

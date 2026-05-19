@@ -11,12 +11,14 @@ public class DeckManager : MonoBehaviour
     // ----------------------------------------------------------------
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform handArea;
+    
 
     public List<Card> drawPile = new List<Card>();
     public List<Card> hand = new List<Card>();
     public List<Card> discardPile = new List<Card>();
 
     private BattleManager battleManager;
+    
 
     public void Initialize(BattleManager bm)
     {

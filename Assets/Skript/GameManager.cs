@@ -23,9 +23,24 @@ public class GameManager : MonoBehaviour
 
     [Header("Карта")]
     public MapNode currentNode;
+    [Header("Стартовая колода")]
+    [SerializeField] private List<CardData> startingDeck;
 
     private void Awake()
     {
+        Debug.Log($"GameManager Awake. Instance exists: {Instance != null}");
+        if (Instance != null)
+        {
+            Debug.Log("Destroying duplicate GameManager");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // Заполняем колоду только один раз при старте
+        if (playerDeck.Count == 0)
+            playerDeck.AddRange(startingDeck);
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -33,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
     }
     public void LoadMap()
     {
@@ -104,5 +120,9 @@ public class GameManager : MonoBehaviour
         activeBuffs.Clear();
         currentNode = null;
         LoadMap();
+    }
+    private void OnDestroy()
+    {
+        Debug.Log("GameManager DESTROYED", this);
     }
 }

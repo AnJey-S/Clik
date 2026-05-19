@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         player = playerRef;
         health = data.maxHP;
         GetComponent<SpriteRenderer>().sprite = data.sprite;
-        //healthText.text = $"HP: {health}";
+        healthText.text = $"HP: {health}";
         ChooseIntention();
     }
 
@@ -123,11 +123,8 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         GameManager.Instance.CompleteCurrentNode();
-        Destroy(gameObject);
         GameManager.Instance.LoadReward();
-        Debug.Log("Он умер");
         Destroy(gameObject);
-        
     }
 
 

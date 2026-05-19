@@ -85,7 +85,9 @@ public class BattleManager : MonoBehaviour
         card.Use(player, enemy);
         deckManager.DiscardCard(card);
 
-        turnManager.CheckEnemyDeath();
+        // Сначала проверяем смерть врага — если умер, выходим
+        if (turnManager.CheckEnemyDeath()) return;
+
         turnManager.CheckPlayerDeath();
 
         if (energy == 0)
