@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemy", menuName = "Enemies/Enemy")]
 public class EnemyData : ScriptableObject
 {
+    public GameObject prefab;
     [Header("Основное")]
     public string enemyName;
     public int maxHP;

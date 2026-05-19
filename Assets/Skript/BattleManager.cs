@@ -33,9 +33,9 @@ public class BattleManager : MonoBehaviour
     // -----------------------------------------------------------
     [Header("Компоненты")]
     [SerializeField] private Player player;
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemySpawnPoint;
-
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Transform playerSpawnPoint;
     [Header("Менеджеры")]
     private DeckManager deckManager;
     private TurnManager turnManager;
@@ -54,9 +54,9 @@ public class BattleManager : MonoBehaviour
 
         // Создаём врага из текущего узла карты
         EnemyData enemyData = GameManager.Instance.currentNode.enemyData;
-        GameObject enemyObj = Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
+        GameObject enemyObj = Instantiate(enemyData.prefab, enemySpawnPoint.position, Quaternion.identity);
         enemy = enemyObj.GetComponent<Enemy>();
-        enemy.data = enemyData;
+        enemy.Initialize(enemyData, player);
 
         // Инициализируем все менеджеры
         deckManager.Initialize(this);

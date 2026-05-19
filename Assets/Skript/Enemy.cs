@@ -22,13 +22,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text intentionText;
     [SerializeField] private TMP_Text healthText;
 
-    public int Health => health; 
+    public int Health => health;
 
-    private void Start()
+    public void Initialize(EnemyData enemyData, Player playerRef)
     {
-        gameManager = GameManager.Instance;
+        data = enemyData;
+        player = playerRef;
         health = data.maxHP;
         GetComponent<SpriteRenderer>().sprite = data.sprite;
+        healthText.text = $"HP: {health}";
         ChooseIntention();
     }
 
@@ -64,7 +66,7 @@ public class Enemy : MonoBehaviour
 
     public void ExecuteIntention(Player player)
     {
-        if (stunTime == 0)
+        if (stunTime != 0)
         {
             stunTime--;
             ChooseIntention();
@@ -118,22 +120,6 @@ public class Enemy : MonoBehaviour
         stunTime = 2;
 
     }
-
-    /*public void Attack(Player player)
-    {
-        player.TakeDamage(5);
-    }
-    public void poisoned(int time)
-    {
-        TakeDamage(time);
-
-    }
-    public void poisonTime()
-    {
-        poisonedTime += 5;
-    }
-
-    */
     public void Death()
     {
         GameManager.Instance.CompleteCurrentNode();
@@ -141,7 +127,7 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.LoadReward();
         Debug.Log("Он умер");
         Destroy(gameObject);
-        gameManager.LoadReward();
+        
     }
 
 
