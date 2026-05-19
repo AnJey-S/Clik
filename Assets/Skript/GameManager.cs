@@ -1,47 +1,108 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Android;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
-    public CanvasGroup battlePanel;
-    public RewardManager rewardManager;
-    public GameState currentState;
-    public enum GameState
+    // ----------------------------------------------------------------
+    //
+    // Этот класс является центральным менеджером игры, который хранит состояние игрока, его колоду карт, активные баффы и текущую позицию на карте.
+    // Он обеспечивает сохранение данных между сценами и предоставляет методы для управления здоровьем игрока, колодой карт, баффами и навигацией по сценам.
+    //
+    // ----------------------------------------------------------------
+    public List<List<MapNode>> currentMap;
+    public static GameManager Instance { get; private set; }
+    [Header("Состояние игрока")]
+    public int playerHP = 50;
+    public int playerMaxHP = 50;
+    public List<CardData> playerDeck = new List<CardData>();
+
+    [Header("Баффы")]
+    public List<PlayerBuffType> activeBuffs = new List<PlayerBuffType>();
+
+    [Header("Карта")]
+    public MapNode currentNode;
+
+    private void Awake()
     {
-        Combat,
-        Reward,
-        Map
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
-    public void EnterRewardState()
+    public void LoadMap()
     {
-        currentState = GameState.Reward;
-        SetPanelVisible(rewardPanel, true);
-        rewardManager.GenerateRewards();
-        SetPanelVisible(battlePanel, false);
+        SceneManager.LoadScene("MapScene");
     }
-    public CanvasGroup rewardPanel;
-    void Start()
+    public void LoadBattle()
     {
-        rewardPanel.alpha = 0;
-        rewardPanel.interactable = false;
-        rewardPanel.blocksRaycasts = false;
+        SceneManager.LoadScene("BattleScene");
     }
-    private void SetRewardPanelVisible(bool visible)
+    public void LoadReward()
     {
-        rewardPanel.alpha = visible ? 1f : 0f;
-        rewardPanel.interactable = visible;
-        rewardPanel.blocksRaycasts = visible;
+        SceneManager.LoadScene("RewardScene");
     }
-    private void SetPanelVisible(CanvasGroup panel, bool visible)
+    public void HealPlayer (int amount)
     {
-        panel.alpha = visible ? 1f : 0f;
-        panel.interactable = visible;
-        panel.blocksRaycasts = visible;
+        playerHP = Mathf.Min(playerHP + amount, playerMaxHP);
     }
-    public void EnterMapState()
+
+    public void HealPlayerPercent (float percent)
     {
-        currentState = GameState.Map;
-        SetPanelVisible(rewardPanel, false);
-        SetPanelVisible(battlePanel, true);
+        int amount = Mathf.RoundToInt(playerMaxHP * percent);
+        HealPlayer(amount);
+    }
+
+    public void DamagePlayer(int amount) 
+    {
+        playerHP -= amount;
+        if (playerHP <= 0) 
+        {
+            PlayerDied();
+        }
+    }
+    private void PlayerDied()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
+    public void AddCardToDeck(CardData card)
+    {
+        playerDeck.Add(card);
+    }
+
+    public void UpgradeCard(CardData card)
+    {
+        int index = playerDeck.IndexOf(card);
+        if (index != -1 && card.upgradedVersion != null)
+            playerDeck[index] = card.upgradedVersion;
+    }
+
+    public void AddBuff (PlayerBuffType buff)
+    {
+        if (!activeBuffs.Contains(buff))
+            activeBuffs.Add(buff);
+    }
+
+    public bool HasBuff(PlayerBuffType buff)
+    {
+        return activeBuffs.Contains(buff);
+    }
+    public void CompleteCurrentNode()
+    {
+        if (currentNode != null)
+            currentNode.isCompleted = true;
+    }
+    public void ResetGame()
+    {
+        playerHP = playerMaxHP;
+        playerDeck.Clear();
+        activeBuffs.Clear();
+        currentNode = null;
+        LoadMap();
     }
 }

@@ -6,8 +6,8 @@ public class CardButton : MonoBehaviour
 {
     private BattleManager battleManager;
     private RewardUI rewardUI;
-    private Card card;
-    
+    private Card card;           // для боя
+    private CardData cardData;   // для награды
 
     [SerializeField] TMP_Text text;
 
@@ -18,18 +18,25 @@ public class CardButton : MonoBehaviour
             btn.onClick.AddListener(OnClick);
     }
 
+    // Для боя — принимает Card
     public void Setup(Card newCard, BattleManager manager)
     {
         card = newCard;
         battleManager = manager;
-        text.text = card.cardName;
+        text.text = card.data.cardName;
     }
-    public void SetupReward(Card newCard, RewardUI manager)
+
+    // Для экрана награды — принимает CardData
+    public void SetupRewardUI(CardData data, RewardUI ui)
     {
-        card = newCard;
-        rewardUI = manager;
-        text.text = card.cardName;
+        cardData = data;
+        rewardUI = ui;
+        text.text = data.cardName;
+
+        if (data.isUpgraded)
+            text.text += " ✦";
     }
+
     public Card GetCard()
     {
         return card;
@@ -37,10 +44,10 @@ public class CardButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (battleManager != null)
+        if (battleManager != null && card != null)
             battleManager.PlayCard(card);
-        else if (rewardUI != null)
-            rewardUI.SelectCard(card);
+        else if (rewardUI != null && cardData != null)
+            rewardUI.SelectCard(cardData);
     }
 
     public void DestroySelf()

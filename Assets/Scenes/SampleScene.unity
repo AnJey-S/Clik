@@ -2212,7 +2212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   battlePanel: {fileID: 453688824}
   rewardManager: {fileID: 229819844}
-  currentState: 0
+  currentState: 2
   rewardPanel: {fileID: 949465490}
 --- !u!4 &1566210152
 Transform:

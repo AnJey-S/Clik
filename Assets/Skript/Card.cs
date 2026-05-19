@@ -1,55 +1,34 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
-public abstract class Card
+public class Card
 {
-    public string cardName;
-    public int cost;
-    public abstract void Use(Player player, Enemy enemy);
+    public CardData data;
 
-    public class AttackCard : Card
+    public Card(CardData data)
     {
-        public int damage;
-        public override void Use(Player player, Enemy enemy)
-        {
-            enemy.TakeDamage(damage);
-        }
-
-    }
-    public class BlockCard : Card
-    {
-        public int block;
-
-        public override void Use(Player player, Enemy enemy)
-        {
-            player.GainBlock(block);
-        }
-    }
-    public class DaringAttackCard : Card
-    {
-        public int damage = 15;
-
-        public override void Use(Player player, Enemy enemy)
-        {
-            enemy.TakeDamage(damage);
-            player.TakeDamage(5);
-        }
-    }
-    public class potionCard : Card
-    {
-        public override void Use(Player player, Enemy enemy)
-        {
-            enemy.poisonTime();
-        }
+        this.data = data;
     }
 
-    public class stunCard : Card
+    public void Use(Player player, Enemy enemy)
     {
-        public override void Use(Player player, Enemy enemy)
+        switch (data.cardType) // было data.type
         {
-            enemy.stunned(2);
+            case CardType.Attack:
+                enemy.TakeDamage(data.value);
+                break;
+            case CardType.Block:
+                player.GainBlock(data.value);
+                break;
+            case CardType.DaringAttack:
+                enemy.TakeDamage(data.value);
+                player.TakeDamage(5);
+                break;
+            case CardType.Poison:
+                enemy.AddPoison(data.value);
+                break;
+            case CardType.Stun:
+                enemy.Stun();
+                break;
         }
     }
-
-
 }
