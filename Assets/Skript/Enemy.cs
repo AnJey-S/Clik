@@ -9,6 +9,25 @@ public class Enemy : MonoBehaviour
     // Он выбирает намерение в начале каждого хода и выполняет его, нанося урон игроку, блокируя, усиливая себя или отравляя игрока. Он также обрабатывает получение урона и смерть врага.
     //
     // ----------------------------------------------------------------
+    // Поля:
+    // - data: Данные врага, включая его характеристики и возможные намерения.
+    // - player: Ссылка на игрока, чтобы враг мог взаимодействовать с ним.
+    // - gameManager: Ссылка на GameManager для управления состоянием игры.
+    // - health: Текущее здоровье врага.
+    // - poisonedTime: Количество ходов, в течение которых враг отравлен.
+    // - stunTime: Количество ходов, в течение которых враг оглушен.
+    // - damageBonus: Дополнительный урон, который враг наносит из-за баффов.
+    // - currentIntention: Текущее намерение врага на следующий ход.
+    // Методы:
+    // - Initialize(EnemyData enemyData, Player playerRef): Инициализирует врага с данными и ссылкой на игрока.
+    // - ChooseIntention(): Выбирает случайное намерение из возможных.
+    // - UpdateIntentionText(): Обновляет текст, отображающий намерение врага.
+    // - ExecuteIntention(Player player): Выполняет текущее намерение, взаимодействуя с игроком.
+    // - TakeDamage(int damage): Наносит урон врагу и проверяет его здоровье.
+    // - AddPoison(int stacks): Добавляет отравление врагу.
+    // - Stun(): Оглушает врага на 2 хода.
+    // - Death(): Обрабатывает смерть врага, уведомляя GameManager и уничтожая объект.
+    // ----------------------------------------------------------------
     public EnemyData data;
     private Player player;
 
@@ -66,7 +85,7 @@ public class Enemy : MonoBehaviour
 
     public void ExecuteIntention(Player player)
     {
-        if (stunTime != 0)
+        if (stunTime > 0)
         {
             stunTime--;
             ChooseIntention();
@@ -79,8 +98,8 @@ public class Enemy : MonoBehaviour
                 player.TakeDamage(data.attackDamage + damageBonus);
                 break;
             case EnemyIntention.DoubleAttack:
-                player.TakeDamage(data.attackDamage + damageBonus);
-                player.TakeDamage(data.attackDamage + damageBonus);
+                player.TakeDamage(data.doubleAttackDamage + damageBonus);
+                player.TakeDamage(data.doubleAttackDamage + damageBonus);
                 break;
             case EnemyIntention.Block:
                 poisonedTime = Mathf.Max(0, poisonedTime - 1);

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RewardScene.unity
     guid: 66819c2fa5ed7b6449a601cc0da0f078
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 9cedf0476f7ca804f91d90e2a2b9488d
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

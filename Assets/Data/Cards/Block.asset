@@ -16,5 +16,5 @@ MonoBehaviour:
   cost: 1
   cardType: 1
   value: 5
-  upgradedVersion: {fileID: 0}
+  upgradedVersion: {fileID: 11400000, guid: dc3158d1ef7966040b7099f7690c7996, type: 2}
   isUpgraded: 0

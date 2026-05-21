@@ -29,7 +29,7 @@ public class BattleUI : MonoBehaviour
     {
         if (enemy == null || player == null) return;
 
-        enemyHealthText.text = "HP: " + enemy.Health;
+        //enemyHealthText.text = "HP: " + enemy.Health;
         playerHealthText.text = "HP: " + GameManager.Instance.playerHP;
 
         if (player.Block != 0)

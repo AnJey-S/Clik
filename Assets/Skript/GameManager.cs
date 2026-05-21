@@ -11,6 +11,20 @@ public class GameManager : MonoBehaviour
     // Он обеспечивает сохранение данных между сценами и предоставляет методы для управления здоровьем игрока, колодой карт, баффами и навигацией по сценам.
     //
     // ----------------------------------------------------------------
+    // Методы:
+    // - LoadMap(): Загружает сцену карты.
+    // - LoadBattle(): Загружает сцену боя.
+    // - LoadReward(): Загружает сцену награды.
+    // - HealPlayer(int amount): Восстанавливает здоровье игрока на указанное количество.
+    // - HealPlayerPercent(float percent): Восстанавливает здоровье игрока на указанный процент от максимального здоровья.
+    // - DamagePlayer(int amount): Наносит урон игроку на указанное количество.
+    // - AddCardToDeck(CardData card): Добавляет карту в колоду игрока.
+    // - UpgradeCard(CardData card): Улучшает карту в колоде игрока, заменяя ее на улучшенную версию.
+    // - AddBuff(PlayerBuffType buff): Добавляет бафф игроку, если его еще нет.
+    // - HasBuff(PlayerBuffType buff): Проверяет, есть ли у игрока указанный бафф.
+    // - CompleteCurrentNode(): Отмечает текущую ноду на карте как завершенную.
+    // - ResetGame(): Сбрасывает состояние игры к начальным значениям.
+    // ----------------------------------------------------------------
     public List<List<MapNode>> currentMap;
     public static GameManager Instance { get; private set; }
     [Header("Состояние игрока")]
@@ -110,9 +124,5 @@ public class GameManager : MonoBehaviour
         activeBuffs.Clear();
         currentNode = null;
         LoadMap();
-    }
-    private void OnDestroy()
-    {
-        Debug.Log("GameManager DESTROYED", this);
     }
 }
