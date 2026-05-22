@@ -50,8 +50,6 @@ public class Player : MonoBehaviour
     public int Health => GameManager.Instance.playerHP;
     public void Death()
     {
-        Debug.Log("Упс! Вы умерли");
         Destroy(gameObject);
-        // открыть какое-нибудь окно поражения
     }
 }

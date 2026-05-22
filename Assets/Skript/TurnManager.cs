@@ -51,7 +51,7 @@ public class TurnManager : MonoBehaviour
     
     public void StartPlayerTurn()
     {
-        battleManager.energy = GameManager.Instance.HasBuff(PlayerBuffType.ExtraEnergy) ? 4 : 3;
+        battleManager.Energy = GameManager.Instance.HasBuff(PlayerBuffType.ExtraEnergy) ? 4 : 3;
         player.Block = 0;
 
         int drawAmount = GameManager.Instance.HasBuff(PlayerBuffType.StartWithCard) ? 6 : 5;

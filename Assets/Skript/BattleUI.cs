@@ -11,6 +11,7 @@ public class BattleUI : MonoBehaviour
     // ----------------------------------------------------------------
     [SerializeField] private TMP_Text enemyHealthText;
     [SerializeField] private TMP_Text playerHealthText;
+    [SerializeField] private TMP_Text playerBlockText;
     [SerializeField] private TMP_Text playerEnergyText;
     [SerializeField] private TMP_Text energyWarningText;
 
@@ -29,13 +30,10 @@ public class BattleUI : MonoBehaviour
     {
         if (enemy == null || player == null) return;
 
-        //enemyHealthText.text = "HP: " + enemy.Health;
-        playerHealthText.text = "HP: " + GameManager.Instance.playerHP;
+        playerHealthText.text = (GameManager.Instance.playerHP > 0) ? "" + GameManager.Instance.playerHP : "0";
+        playerBlockText.text = "" + player.Block;
 
-        if (player.Block != 0)
-            playerHealthText.text += " + " + player.Block;
-
-        playerEnergyText.text = "Энергия: " + battleManager.energy;
+        playerEnergyText.text = "" + battleManager.Energy;
         energyWarningText.text = battleManager.energyWarning ? "Не хватает энергии!" : "";
     }
 }

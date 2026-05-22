@@ -34,10 +34,12 @@ public class BattleManager : MonoBehaviour
     private TurnManager turnManager;
     private BattleUI battleUI;
 
-    public int energy = 3;
+    private int energy = 3;
     public bool energyWarning = false;
 
     private Enemy enemy;
+
+    public int Energy { get => energy; set => energy = value; }
 
     private void Start()
     {

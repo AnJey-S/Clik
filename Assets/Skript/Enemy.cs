@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.U2D;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,10 +20,13 @@ public class Enemy : MonoBehaviour
     // - stunTime: Количество ходов, в течение которых враг оглушен.
     // - damageBonus: Дополнительный урон, который враг наносит из-за баффов.
     // - currentIntention: Текущее намерение врага на следующий ход.
+    // - UIIcons: Коллекция (атлас) иконок с намерениями врага.
+    // - IntentionIcon: Ссылка на иконку текущего намерения в интерфейсе.
+    // - IntentionIconExtra: Ссылка на дополнительную иконку текущего намерения в интерфейсе (для двойной атаки).
     // Методы:
     // - Initialize(EnemyData enemyData, Player playerRef): Инициализирует врага с данными и ссылкой на игрока.
     // - ChooseIntention(): Выбирает случайное намерение из возможных.
-    // - UpdateIntentionText(): Обновляет текст, отображающий намерение врага.
+    // - UpdateIntentionText(): Обновляет текст и иконку, отображающие намерение врага.
     // - ExecuteIntention(Player player): Выполняет текущее намерение, взаимодействуя с игроком.
     // - TakeDamage(int damage): Наносит урон врагу и проверяет его здоровье.
     // - AddPoison(int stacks): Добавляет отравление врагу.
@@ -41,6 +46,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text intentionText;
     [SerializeField] private TMP_Text healthText;
 
+    public SpriteAtlas UIIcons;
+    public Image intentionIcon;
+    public Image intentionIconExtra;
+
     public int Health => health;
 
     public void Initialize(EnemyData enemyData, Player playerRef)
@@ -49,7 +58,7 @@ public class Enemy : MonoBehaviour
         player = playerRef;
         health = data.maxHP;
         GetComponent<SpriteRenderer>().sprite = data.sprite;
-        healthText.text = $"HP: {health}";
+        healthText.text = health.ToString();
         ChooseIntention();
     }
 
@@ -63,22 +72,48 @@ public class Enemy : MonoBehaviour
 
     private void UpdateIntentionText()
     {
+        Sprite emptyIntention = UIIcons.GetSprite("blank");
+        Sprite attackIntention = UIIcons.GetSprite("attack_intent_0");
+        Sprite blockIntention = UIIcons.GetSprite("block_intent");
+        Sprite buffIntention = UIIcons.GetSprite("buffself_intent");
+        Sprite poisonIntention = UIIcons.GetSprite("poison_intent");
+
         switch (currentIntention)
         {
             case EnemyIntention.Attack:
-                intentionText.text = $"⚔ {data.attackDamage + damageBonus}";
+                //intentionText.text = $"⚔ {data.attackDamage + damageBonus}";
+                intentionText.text = $"{data.attackDamage + damageBonus}";
+                intentionIcon.sprite = attackIntention;
+                intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.DoubleAttack:
-                intentionText.text = $"⚔⚔ {data.doubleAttackDamage + damageBonus}x2";
+                //intentionText.text = $"⚔⚔ {data.doubleAttackDamage + damageBonus}x2";
+                intentionText.text = $"{data.doubleAttackDamage + damageBonus}x2";
+                intentionIcon.sprite = attackIntention;
+                intentionIconExtra.sprite = attackIntention;
                 break;
             case EnemyIntention.Block:
-                intentionText.text = "🛡 Block";
+                //intentionText.text = "🛡 Block";
+                intentionText.text = "Block";
+                intentionIcon.sprite = blockIntention;
+                intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.BuffSelf:
-                intentionText.text = "⬆ Buff";
+                //intentionText.text = "⬆ Buff";
+                intentionText.text = "Buff";
+                intentionIcon.sprite = buffIntention;
+                intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.PoisonPlayer:
-                intentionText.text = "☠ Poison";
+                //intentionText.text = "☠ Poison";
+                intentionText.text = "Poison";
+                intentionIcon.sprite = poisonIntention;
+                intentionIconExtra.sprite = emptyIntention;
+                break;
+            default:
+                intentionText.text = "";
+                intentionIcon.sprite = emptyIntention;
+                intentionIconExtra.sprite = emptyIntention;
                 break;
         }
     }
@@ -124,7 +159,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthText.text = $"HP: {health}";
+        healthText.text = health.ToString();
         if (health <= 0)
             Death();
     }
@@ -142,7 +177,8 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         GameManager.Instance.CompleteCurrentNode();
-        GameManager.Instance.LoadReward();
+        if (data.enemyName == "Рыцарь Смерти") GameManager.Instance.LoadVictory();
+        else GameManager.Instance.LoadReward();
         Destroy(gameObject);
     }
 

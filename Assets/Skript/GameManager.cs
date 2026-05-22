@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
     // - LoadMap(): Загружает сцену карты.
     // - LoadBattle(): Загружает сцену боя.
     // - LoadReward(): Загружает сцену награды.
+    // - LoadVictory(): Загружает сцену победы.
     // - HealPlayer(int amount): Восстанавливает здоровье игрока на указанное количество.
     // - HealPlayerPercent(float percent): Восстанавливает здоровье игрока на указанный процент от максимального здоровья.
     // - DamagePlayer(int amount): Наносит урон игроку на указанное количество.
+    // - PlayerDied(): Загружает сцену поражения в случае смерти игрока.
     // - AddCardToDeck(CardData card): Добавляет карту в колоду игрока.
     // - UpgradeCard(CardData card): Улучшает карту в колоде игрока, заменяя ее на улучшенную версию.
     // - AddBuff(PlayerBuffType buff): Добавляет бафф игроку, если его еще нет.
@@ -65,6 +67,10 @@ public class GameManager : MonoBehaviour
     public void LoadReward()
     {
         SceneManager.LoadScene("RewardScene");
+    }
+    public void LoadVictory()
+    {
+        SceneManager.LoadScene("VictoryScene");
     }
     public void HealPlayer (int amount)
     {

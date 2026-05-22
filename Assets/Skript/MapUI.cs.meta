@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 41a5cc6fef51a3e42a7b8cbd04b6543a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - nodePrefab: {instanceID: 0}
+  - mapContainer: {instanceID: 0}
+  - UIIcons: {fileID: 100100200, guid: a3f1875d64248a74fbb680b479d37d8a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

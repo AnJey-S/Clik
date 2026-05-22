@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.U2D;
 
 public class MapUI : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class MapUI : MonoBehaviour
     //    - DrawMap(): Этот метод создает визуальные представления для каждого узла карты, устанавливает их позицию, отображает иконки типов комнат, настраивает кнопки для взаимодействия и изменяет внешний вид узлов в зависимости от их доступности и статуса прохождения.
     //    - IsAccessible(MapNode node): Этот метод проверяет, доступен ли узел для выбора игроком. Узел доступен, если он находится в первой колонке или если предыдущая колонка содержит пройденный узел, который ведет к этому узлу.
     //    - SelectNode(MapNode node): Этот метод вызывается, когда игрок выбирает узел на карте. Он устанавливает текущий узел в GameManager и загружает сцену боя или применяет лечение в зависимости от типа комнаты узла.
-    //    - GetRoomIcon(RoomType type): Этот метод возвращает строку с иконкой, соответствующей типу комнаты, для отображения на узлах карты.
+    //    - GetRoomIcon(RoomType type): Этот метод возвращает спрайт иконки, соответствующей типу комнаты, для отображения на узлах карты.
     // Поля:
-    //    - nodePrefab: Префаб для визуального представления узла карты, который должен содержать компонент Button и TMP_Text для отображения иконки комнаты.
+    //    - nodePrefab: Префаб для визуального представления узла карты, который должен содержать компонент Button и Image для отображения иконки комнаты.
     //    - mapContainer: Трансформ, который будет служить родителем для всех узлов карты в иерархии сцены.
     //    - horizontalSpacing: Горизонтальное расстояние между узлами в разных колонках.
     //    - verticalSpacing: Вертикальное расстояние между узлами в одной колонке.
@@ -30,6 +31,8 @@ public class MapUI : MonoBehaviour
 
     private MapGenerator mapGenerator;
     private List<List<MapNode>> map;
+
+    public SpriteAtlas UIIcons;
 
     private void Start()
     {
@@ -63,8 +66,14 @@ public class MapUI : MonoBehaviour
                 );
 
                 // Текст иконки комнаты
-                TMP_Text label = obj.GetComponentInChildren<TMP_Text>();
-                label.text = GetRoomIcon(node.roomType);
+                //TMP_Text label = obj.GetComponentInChildren<TMP_Text>();
+                //label.text = GetRoomIcon(node.roomType);
+
+                // Иконка комнаты
+                Button nodeButton = obj.GetComponent<Button>();
+                Transform childTransform = nodeButton.transform.Find("NodeIcon");
+                Image childImage = childTransform.GetComponent<Image>();
+                childImage.sprite = GetRoomIcon(node.roomType);
 
                 // Кнопка
                 Button btn = obj.GetComponent<Button>();
@@ -123,15 +132,27 @@ public class MapUI : MonoBehaviour
         }
     }
 
-    private string GetRoomIcon(RoomType type)
+    //private string GetRoomIcon(RoomType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case RoomType.Enemy: return "⚔";
+    //        case RoomType.Elite: return "💀";
+    //        case RoomType.Heal: return "❤";
+    //        case RoomType.Boss: return "👑";
+    //        default: return "?";
+    //    }
+    //}
+
+    private Sprite GetRoomIcon(RoomType type)
     {
         switch (type)
         {
-            case RoomType.Enemy: return "⚔";
-            case RoomType.Elite: return "💀";
-            case RoomType.Heal: return "❤";
-            case RoomType.Boss: return "👑";
-            default: return "?";
+            case RoomType.Enemy: return UIIcons.GetSprite("monster_black");
+            case RoomType.Elite: return UIIcons.GetSprite("elite_black");
+            case RoomType.Heal: return UIIcons.GetSprite("chest_black");
+            case RoomType.Boss: return UIIcons.GetSprite("boss_black");
+            default: return UIIcons.GetSprite("unknown_black");
         }
     }
 }
