@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7574.5654, y: 2881.7158, z: 1}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3295488032693915684}
@@ -148,7 +148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: 259}
+  m_AnchoredPosition: {x: 145, y: 408.9901}
   m_SizeDelta: {x: 84.4335, y: 79.243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2361074432848982513
@@ -329,7 +329,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 439.2366, y: 254.29977}
+  m_AnchoredPosition: {x: 589.2366, y: 404.28986}
   m_SizeDelta: {x: 107.7433, y: 120.8467}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7991961116669421140
@@ -404,7 +404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 232.99707, y: 261.00995}
+  m_AnchoredPosition: {x: 382.99707, y: 411.00006}
   m_SizeDelta: {x: 263.9424, y: 59.116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6799999731573626296
@@ -541,7 +541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49, y: 261.0099}
+  m_AnchoredPosition: {x: 198.99998, y: 411}
   m_SizeDelta: {x: 79.0649, y: 75.2168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3304389830246574569
@@ -616,7 +616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 581.0261, y: 261.00995}
+  m_AnchoredPosition: {x: 731.0261, y: 411.00006}
   m_SizeDelta: {x: 191.9478, y: 59.116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5805283138708735243
