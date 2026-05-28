@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     [Header("Стартовая колода")]
     [SerializeField] private List<CardData> startingDeck;
 
+    [Header("Бесконечный режим")]
+    public bool isEndlessMode = false;
+    public int endlessRun = 0;
     private void Awake()
     {
         if (Instance != null)
@@ -136,6 +139,23 @@ public class GameManager : MonoBehaviour
         activeBuffs.Clear();
         currentNode = null;
         currentMap = null;
+        isEndlessMode = false;
+        endlessRun = 0;
         LoadMap();
+    }
+
+    public void StartEndlessMode()
+    {
+        isEndlessMode = true;
+        endlessRun++;
+        currentNode = null;
+        currentMap = null;
+        LoadMap();
+    }
+
+    public float GetEndlessMultiplier()
+    {
+        if (!isEndlessMode || endlessRun <= 0) return 1f;
+        return Mathf.Pow(2f, endlessRun);
     }
 }

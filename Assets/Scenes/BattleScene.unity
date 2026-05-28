@@ -1159,6 +1159,7 @@ MonoBehaviour:
   playerBlockText: {fileID: 722235927}
   playerEnergyText: {fileID: 392244090}
   energyWarningText: {fileID: 887824034}
+  enemyBlockText: {fileID: 0}
 --- !u!114 &1233504122
 MonoBehaviour:
   m_ObjectHideFlags: 0

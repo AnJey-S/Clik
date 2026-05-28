@@ -32,7 +32,6 @@ public class BattleUI : MonoBehaviour
 
         playerHealthText.text = (GameManager.Instance.playerHP > 0) ? "" + GameManager.Instance.playerHP : "0";
         playerBlockText.text = "" + player.Block;
-
         playerEnergyText.text = "" + battleManager.Energy;
         energyWarningText.text = battleManager.energyWarning ? "Не хватает энергии!" : "";
     }

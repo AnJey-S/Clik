@@ -46,21 +46,31 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private TMP_Text intentionText;
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private TMP_Text blockText;
 
     public SpriteAtlas UIIcons;
     public Image intentionIcon;
     public Image intentionIconExtra;
-
+    private int scaledAttackDamage;
+    private int scaledDoubleAttackDamage;
+    private int scaledBuffDamageBonus;
     public int Health => health;
-
+    public int EnemyBlock => enemyBlock;
     public void Initialize(EnemyData enemyData, Player playerRef)
     {
         data = enemyData;
         player = playerRef;
-        health = data.maxHP;
+
+        float mult = GameManager.Instance.GetEndlessMultiplier();
+        health = Mathf.RoundToInt(data.maxHP * mult);
+        scaledAttackDamage = Mathf.RoundToInt(data.attackDamage * mult);
+        scaledDoubleAttackDamage = Mathf.RoundToInt(data.doubleAttackDamage * mult);
+        scaledBuffDamageBonus = Mathf.RoundToInt(data.buffDamageBonus * mult);
+
         GetComponent<SpriteRenderer>().sprite = data.sprite;
         transform.localScale = Vector3.one * enemyData.scale;
         healthText.text = health.ToString();
+        blockText.text = "0";
         ChooseIntention();
     }
 
@@ -84,13 +94,13 @@ public class Enemy : MonoBehaviour
         {
             case EnemyIntention.Attack:
                 //intentionText.text = $"⚔ {data.attackDamage + damageBonus}";
-                intentionText.text = $"{data.attackDamage + damageBonus}";
+                intentionText.text = $"{scaledAttackDamage + damageBonus}";
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.DoubleAttack:
                 //intentionText.text = $"⚔⚔ {data.doubleAttackDamage + damageBonus}x2";
-                intentionText.text = $"{data.doubleAttackDamage + damageBonus}x2";
+                intentionText.text = $"{scaledDoubleAttackDamage + damageBonus}x2";
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = attackIntention;
                 break;
@@ -132,27 +142,28 @@ public class Enemy : MonoBehaviour
         switch (currentIntention)
         {
             case EnemyIntention.Attack:
-                player.TakeDamage(data.attackDamage + damageBonus);
+                player.TakeDamage(scaledAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
                     TakeDamage(2);
                 break;
             case EnemyIntention.DoubleAttack:
-                player.TakeDamage(data.doubleAttackDamage + damageBonus);
+                player.TakeDamage(scaledDoubleAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
                     TakeDamage(2);
-                player.TakeDamage(data.doubleAttackDamage + damageBonus);
+                player.TakeDamage(scaledDoubleAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
                     TakeDamage(2);
                 break;
             case EnemyIntention.Block:
                 enemyBlock += 8;
+                blockText.text = enemyBlock.ToString();
                 poisonedTime = Mathf.Max(0, poisonedTime - 1);
                 break;
             case EnemyIntention.BuffSelf:
-                damageBonus += data.buffDamageBonus;
+                damageBonus += scaledBuffDamageBonus;
                 break;
             case EnemyIntention.PoisonPlayer:
-                player.AddPoison(2);
+                player.AddPoison(4);
                 break;
         }
 
@@ -171,6 +182,7 @@ public class Enemy : MonoBehaviour
         enemyBlock = Mathf.Max(0, enemyBlock - damage);
         health -= finalDamage;
         healthText.text = health.ToString();
+        blockText.text = enemyBlock.ToString();
         if (health <= 0)
             Death();
     }
@@ -183,6 +195,7 @@ public class Enemy : MonoBehaviour
     public void ResetBlock()
     {
         enemyBlock = 0;
+        blockText.text = "";
     }
 
     public void Stun()
