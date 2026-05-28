@@ -1,7 +1,11 @@
 public enum PlayerBuffType
 {
     BonusBlock,
+    BonusAttack,
     ExtraEnergy,
-    StartWithCard,
-    BonusMaxHP
+    BonusMaxHP,
+    Thorns,
+    Regeneration,
+    ExtraCard,
+    Berserk
 }

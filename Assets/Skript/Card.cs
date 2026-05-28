@@ -11,16 +11,18 @@ public class Card
 
     public void Use(Player player, Enemy enemy)
     {
-        switch (data.cardType) // было data.type
+        int attackBonus = GameManager.Instance.HasBuff(PlayerBuffType.BonusAttack) ? 3 : 0;
+
+        switch (data.cardType)
         {
             case CardType.Attack:
-                enemy.TakeDamage(data.value);
+                enemy.TakeDamage(data.value + attackBonus);
                 break;
             case CardType.Block:
                 player.GainBlock(data.value);
                 break;
             case CardType.DaringAttack:
-                enemy.TakeDamage(data.value);
+                enemy.TakeDamage(data.value + attackBonus);
                 player.TakeDamage(5);
                 break;
             case CardType.Poison:

@@ -19,4 +19,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Баффы")]
     public int buffDamageBonus;
+
+    [Header("Блок")]
+    public int blockAmount;
 }

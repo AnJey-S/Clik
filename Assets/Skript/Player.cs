@@ -24,6 +24,13 @@ public class Player : MonoBehaviour
     public int poisonedTime = 0;
     public int Block { get => block; set => block = value; }
 
+    private BattleManager battleManager;
+
+    public void Initialize(BattleManager bm)
+    {
+        battleManager = bm;
+    }
+
     public void GainBlock(int amount)
     {
         block += amount;
@@ -46,6 +53,10 @@ public class Player : MonoBehaviour
         int finalDamage = Mathf.Max(0, damage - block);
         block = Mathf.Max(0, block - damage);
         GameManager.Instance.DamagePlayer(finalDamage);
+
+        // Берсерк — получаем энергию за урон
+        if (finalDamage > 0 && GameManager.Instance.HasBuff(PlayerBuffType.Berserk))
+            battleManager.Energy += 1;
     }
     public int Health => GameManager.Instance.playerHP;
     public void Death()

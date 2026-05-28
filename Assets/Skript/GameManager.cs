@@ -108,10 +108,15 @@ public class GameManager : MonoBehaviour
             playerDeck[index] = card.upgradedVersion;
     }
 
-    public void AddBuff (PlayerBuffType buff)
+    public void AddBuff(PlayerBuffType buff)
     {
-        if (!activeBuffs.Contains(buff))
-            activeBuffs.Add(buff);
+        activeBuffs.Add(buff);
+
+        if (buff == PlayerBuffType.BonusMaxHP)
+        {
+            playerMaxHP += 15;
+            playerHP += 15;
+        }
     }
 
     public bool HasBuff(PlayerBuffType buff)
@@ -127,8 +132,10 @@ public class GameManager : MonoBehaviour
     {
         playerHP = playerMaxHP;
         playerDeck.Clear();
+        playerDeck.AddRange(startingDeck);
         activeBuffs.Clear();
         currentNode = null;
+        currentMap = null;
         LoadMap();
     }
 }

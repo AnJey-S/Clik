@@ -48,13 +48,22 @@ public class TurnManager : MonoBehaviour
         StartPlayerTurn();
     }
 
-    
+
     public void StartPlayerTurn()
     {
         battleManager.Energy = GameManager.Instance.HasBuff(PlayerBuffType.ExtraEnergy) ? 4 : 3;
         player.Block = 0;
 
-        int drawAmount = GameManager.Instance.HasBuff(PlayerBuffType.StartWithCard) ? 6 : 5;
+        // Регенерация
+        if (GameManager.Instance.HasBuff(PlayerBuffType.Regeneration))
+            GameManager.Instance.HealPlayer(3);
+
+        // Блок в начале хода
+        if (GameManager.Instance.HasBuff(PlayerBuffType.BonusBlock))
+            player.GainBlock(4);
+
+        // +1 карта в руке
+        int drawAmount = GameManager.Instance.HasBuff(PlayerBuffType.ExtraCard) ? 6 : 5;
         deckManager.DrawCards(drawAmount - deckManager.hand.Count);
     }
 
@@ -67,6 +76,7 @@ public class TurnManager : MonoBehaviour
 
     private void ExecuteEnemyTurn()
     {
+        enemy.ResetBlock();
         enemy.ExecuteIntention(player);
         CheckPlayerDeath();
         EndEnemyTurn();

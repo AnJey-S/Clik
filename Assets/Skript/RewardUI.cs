@@ -32,6 +32,10 @@ public class RewardUI : MonoBehaviour
 
 
 
+    [Header("Бафф элиты")]
+    [SerializeField] private GameObject eliteBuffPanel;
+    [SerializeField] private Transform buffContainer;
+
     [Header("Выбор типа награды")]
     [SerializeField] private GameObject choicePanel;
     [SerializeField] private Button upgradeButton;
@@ -45,24 +49,81 @@ public class RewardUI : MonoBehaviour
     [SerializeField] private Button skipButton;
 
     private RewardMode currentMode;
+    private bool isElite;
 
     private enum RewardMode { Upgrade, NewCard }
 
     private void Start()
     {
-        ShowChoicePanel();
+        isElite = GameManager.Instance.currentNode.roomType == RoomType.Elite;
 
         upgradeButton.onClick.AddListener(() => ShowCardSelection(RewardMode.Upgrade));
         newCardButton.onClick.AddListener(() => ShowCardSelection(RewardMode.NewCard));
         skipButton.onClick.AddListener(Skip);
+
+        if (isElite)
+            ShowEliteBuffPanel();
+        else
+            ShowChoicePanel();
     }
+
+    // ----------------------------------------------------------------
+    // Бафф элиты
+    // ----------------------------------------------------------------
+
+    private void ShowEliteBuffPanel()
+    {
+        eliteBuffPanel.SetActive(true);
+        choicePanel.SetActive(false);
+        cardSelectionPanel.SetActive(false);
+
+        foreach (Transform child in buffContainer)
+            Destroy(child.gameObject);
+
+        List<PlayerBuffType> allBuffs = new List<PlayerBuffType>
+        {
+            PlayerBuffType.BonusBlock,
+            PlayerBuffType.BonusAttack,
+            PlayerBuffType.ExtraEnergy,
+            PlayerBuffType.BonusMaxHP,
+            PlayerBuffType.Thorns,
+            PlayerBuffType.Regeneration,
+            PlayerBuffType.ExtraCard,
+            PlayerBuffType.Berserk
+        };
+
+        // Перемешиваем и берём 3
+        for (int i = 0; i < allBuffs.Count; i++)
+        {
+            int rnd = Random.Range(i, allBuffs.Count);
+            (allBuffs[i], allBuffs[rnd]) = (allBuffs[rnd], allBuffs[i]);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            PlayerBuffType buff = allBuffs[i];
+            GameObject obj = Instantiate(cardPrefab, buffContainer);
+            CardButton btn = obj.GetComponent<CardButton>();
+            btn.SetupBuffUI(buff, this);
+        }
+    }
+
+    public void SelectBuff(PlayerBuffType buff)
+    {
+        GameManager.Instance.AddBuff(buff);
+        eliteBuffPanel.SetActive(false);
+        ShowChoicePanel();
+    }
+
+    // ----------------------------------------------------------------
+    // Обычная награда
+    // ----------------------------------------------------------------
 
     private void ShowChoicePanel()
     {
         choicePanel.SetActive(true);
         cardSelectionPanel.SetActive(false);
 
-        // Если нечего улучшать — блокируем кнопку
         bool canUpgrade = UpgradeManager.Instance.GetUpgradeCandidates().Count > 0;
         upgradeButton.interactable = canUpgrade;
     }
@@ -73,7 +134,6 @@ public class RewardUI : MonoBehaviour
         choicePanel.SetActive(false);
         cardSelectionPanel.SetActive(true);
 
-        // Очищаем старые карты
         foreach (Transform child in cardContainer)
             Destroy(child.gameObject);
 

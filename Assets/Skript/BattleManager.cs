@@ -50,6 +50,7 @@ public class BattleManager : MonoBehaviour
         // Спавним игрока
         GameObject playerObj = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
         player = playerObj.GetComponent<Player>();
+        player.Initialize(this); 
 
         // Спавним врага
         EnemyData enemyData = GameManager.Instance.currentNode.enemyData;

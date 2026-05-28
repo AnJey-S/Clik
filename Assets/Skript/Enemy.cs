@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour
     public int poisonedTime = 0;
     public int stunTime = 0;
     private int damageBonus = 0;
+    private int enemyBlock = 0;
     private EnemyIntention currentIntention;
 
     [SerializeField] private TMP_Text intentionText;
@@ -131,12 +132,19 @@ public class Enemy : MonoBehaviour
         {
             case EnemyIntention.Attack:
                 player.TakeDamage(data.attackDamage + damageBonus);
+                if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
+                    TakeDamage(2);
                 break;
             case EnemyIntention.DoubleAttack:
                 player.TakeDamage(data.doubleAttackDamage + damageBonus);
+                if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
+                    TakeDamage(2);
                 player.TakeDamage(data.doubleAttackDamage + damageBonus);
+                if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
+                    TakeDamage(2);
                 break;
             case EnemyIntention.Block:
+                enemyBlock += 8;
                 poisonedTime = Mathf.Max(0, poisonedTime - 1);
                 break;
             case EnemyIntention.BuffSelf:
@@ -158,7 +166,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        int finalDamage = Mathf.Max(0, damage - enemyBlock);
+        enemyBlock = Mathf.Max(0, enemyBlock - damage);
+        health -= finalDamage;
         healthText.text = health.ToString();
         if (health <= 0)
             Death();
@@ -167,6 +177,11 @@ public class Enemy : MonoBehaviour
     public void AddPoison(int stacks)
     {
         poisonedTime += stacks;
+    }
+
+    public void ResetBlock()
+    {
+        enemyBlock = 0;
     }
 
     public void Stun()
