@@ -101,10 +101,15 @@ public class MapUI : MonoBehaviour
 
     private bool IsAccessible(MapNode node)
     {
-        // Первая колонка всегда доступна
+        // Первая колонка всегда доступна если не пройдена
         if (node.column == 0) return !node.isCompleted;
 
-        // Остальные — только если предыдущая пройдена и ведёт к этому узлу
+        // Если в этой колонке уже есть пройденная нода — недоступна
+        foreach (MapNode sameColumn in map[node.column])
+            if (sameColumn.isCompleted)
+                return false;
+
+        // Доступна только если предыдущая пройдена и ведёт к этому узлу
         List<MapNode> previousColumn = map[node.column - 1];
         foreach (MapNode prevNode in previousColumn)
             if (prevNode.isCompleted && prevNode.nextNodes.Contains(node))

@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
         player = playerRef;
         health = data.maxHP;
         GetComponent<SpriteRenderer>().sprite = data.sprite;
+        transform.localScale = Vector3.one * enemyData.scale;
         healthText.text = health.ToString();
         ChooseIntention();
     }
@@ -192,8 +193,12 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         GameManager.Instance.CompleteCurrentNode();
-        if (data.enemyName == "Рыцарь Смерти") GameManager.Instance.LoadVictory();
-        else GameManager.Instance.LoadReward();
+
+        if (GameManager.Instance.currentNode.roomType == RoomType.Boss)
+            GameManager.Instance.LoadVictory();
+        else
+            GameManager.Instance.LoadReward();
+
         Destroy(gameObject);
     }
 

@@ -22,4 +22,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Блок")]
     public int blockAmount;
+
+    [Header("Размер")]
+    public float scale = 1f;
 }
