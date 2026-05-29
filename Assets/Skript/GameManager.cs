@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
     public List<List<MapNode>> currentMap;
     public static GameManager Instance { get; private set; }
     [Header("Состояние игрока")]
-    public int playerHP = 50;
-    public int playerMaxHP = 50;
+    public int playerHP = 100;
+    public int playerMaxHP = 100;
     public List<CardData> playerDeck = new List<CardData>();
 
     [Header("Баффы")]

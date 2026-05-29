@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "\u042F\u0434"
-  cost: 1
+  cost: 2
   cardType: 3
   value: 2
   upgradedVersion: {fileID: 11400000, guid: 09c0516528d15b144af6fdc66e6b9071, type: 2}

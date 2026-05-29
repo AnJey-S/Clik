@@ -85,9 +85,6 @@ public class BattleManager : MonoBehaviour
         if (turnManager.CheckEnemyDeath()) return;
 
         turnManager.CheckPlayerDeath();
-
-        if (energy == 0)
-            turnManager.EndPlayerTurn();
     }
 
     public void EndTurn()

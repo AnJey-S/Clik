@@ -62,6 +62,9 @@ public class TurnManager : MonoBehaviour
         if (GameManager.Instance.HasBuff(PlayerBuffType.BonusBlock))
             player.GainBlock(4);
 
+        // Яд от врага
+        player.PoisonCheck();
+
         // +1 карта в руке
         int drawAmount = GameManager.Instance.HasBuff(PlayerBuffType.ExtraCard) ? 6 : 5;
         deckManager.DrawCards(drawAmount - deckManager.hand.Count);

@@ -65,10 +65,6 @@ public class MapUI : MonoBehaviour
                     node.row * verticalSpacing
                 );
 
-                // Текст иконки комнаты
-                //TMP_Text label = obj.GetComponentInChildren<TMP_Text>();
-                //label.text = GetRoomIcon(node.roomType);
-
                 // Иконка комнаты
                 Button nodeButton = obj.GetComponent<Button>();
                 Transform childTransform = nodeButton.transform.Find("NodeIcon");
@@ -136,18 +132,6 @@ public class MapUI : MonoBehaviour
                 break;
         }
     }
-
-    //private string GetRoomIcon(RoomType type)
-    //{
-    //    switch (type)
-    //    {
-    //        case RoomType.Enemy: return "⚔";
-    //        case RoomType.Elite: return "💀";
-    //        case RoomType.Heal: return "❤";
-    //        case RoomType.Boss: return "👑";
-    //        default: return "?";
-    //    }
-    //}
 
     private Sprite GetRoomIcon(RoomType type)
     {

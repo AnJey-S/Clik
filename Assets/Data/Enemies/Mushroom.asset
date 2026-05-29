@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   prefab: {fileID: 1362549047665721992, guid: 724b59696e8d47d4a8ff8fceb04fc0e9, type: 3}
   enemyName: "\u0420\u043E\u043C\u0430\u0448\u0435\u0447\u043A\u0430"
-  maxHP: 35
+  maxHP: 80
   sprite: {fileID: 4214174381351694745, guid: eb30f86f722c2754fa32b81c3ea0f1ae, type: 3}
-  attackDamage: 6
-  doubleAttackDamage: 0
+  attackDamage: 7
+  doubleAttackDamage: 7
   possibleIntensions: 0000000004000000
   buffDamageBonus: 0
   blockAmount: 0

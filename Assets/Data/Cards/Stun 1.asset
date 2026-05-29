@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: "\u041E\u0433\u043B\u0443\u0448\u0435\u043D\u0438\u0435"
   cost: 2
   cardType: 4
-  value: 2
+  value: 3
   upgradedVersion: {fileID: 0}
   isUpgraded: 0

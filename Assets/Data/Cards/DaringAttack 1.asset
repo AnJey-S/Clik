@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: 
   cost: 1
   cardType: 2
-  value: 12
+  value: 15
   upgradedVersion: {fileID: 0}
   isUpgraded: 0

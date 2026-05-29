@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
     private int health;
     public int poisonedTime = 0;
     public int stunTime = 0;
-    private int damageBonus = 0;
+    public int damageBonus = 0;
     private int enemyBlock = 0;
     private EnemyIntention currentIntention;
 
@@ -48,9 +48,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text blockText;
 
+    [SerializeField] public TMP_Text remainingPoisonText;
+    [SerializeField] public TMP_Text remainingStunText;
+    [SerializeField] public TMP_Text damageBonusText;
+
     public SpriteAtlas UIIcons;
     public Image intentionIcon;
     public Image intentionIconExtra;
+    public Image remainingPoisonIcon;
+    public Image remainingStunIcon;
+    public Image damageBonusIcon;
+
     private int scaledAttackDamage;
     private int scaledDoubleAttackDamage;
     private int scaledBuffDamageBonus;
@@ -93,31 +101,26 @@ public class Enemy : MonoBehaviour
         switch (currentIntention)
         {
             case EnemyIntention.Attack:
-                //intentionText.text = $"⚔ {data.attackDamage + damageBonus}";
                 intentionText.text = $"{scaledAttackDamage + damageBonus}";
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.DoubleAttack:
-                //intentionText.text = $"⚔⚔ {data.doubleAttackDamage + damageBonus}x2";
                 intentionText.text = $"{scaledDoubleAttackDamage + damageBonus}x2";
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = attackIntention;
                 break;
             case EnemyIntention.Block:
-                //intentionText.text = "🛡 Block";
                 intentionText.text = "Block";
                 intentionIcon.sprite = blockIntention;
                 intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.BuffSelf:
-                //intentionText.text = "⬆ Buff";
                 intentionText.text = "Buff";
                 intentionIcon.sprite = buffIntention;
                 intentionIconExtra.sprite = emptyIntention;
                 break;
             case EnemyIntention.PoisonPlayer:
-                //intentionText.text = "☠ Poison";
                 intentionText.text = "Poison";
                 intentionIcon.sprite = poisonIntention;
                 intentionIconExtra.sprite = emptyIntention;
@@ -137,6 +140,12 @@ public class Enemy : MonoBehaviour
             stunTime--;
             ChooseIntention();
             return;
+        }
+
+        if (poisonedTime > 0)
+        {
+            TakeDamage(poisonedTime);
+            poisonedTime--;
         }
 
         switch (currentIntention)
@@ -167,12 +176,6 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        if (poisonedTime > 0)
-        {
-            TakeDamage(poisonedTime);
-            poisonedTime--;
-        }
-
         ChooseIntention();
     }
 
@@ -195,7 +198,7 @@ public class Enemy : MonoBehaviour
     public void ResetBlock()
     {
         enemyBlock = 0;
-        blockText.text = "";
+        blockText.text = "0";
     }
 
     public void Stun()

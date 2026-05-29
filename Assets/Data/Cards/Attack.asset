@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: "\u0410\u0442\u0430\u043A\u0430"
   cost: 1
   cardType: 0
-  value: 8
+  value: 5
   upgradedVersion: {fileID: 11400000, guid: f5861c96e827e3149aa5746a8dee7aa6, type: 2}
   isUpgraded: 0
