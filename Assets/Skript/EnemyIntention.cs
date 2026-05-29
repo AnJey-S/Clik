@@ -6,5 +6,6 @@ public enum EnemyIntention
     Block,
     BuffSelf,
     DoubleAttack,
+    MultiAttack,
     PoisonPlayer
 }

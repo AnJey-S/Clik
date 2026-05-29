@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Block
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "\u0411\u043B\u043E\u043A"
+  cardDesription: "\u0431\u043B\u043E\u043A: 5"
   cost: 1
   cardType: 1
   value: 5
-  sprite: {fileID: 8436460536019627045, guid: f82134e6d5861c743914929b2281a9a3, type: 3}
   upgradedVersion: {fileID: 11400000, guid: dc3158d1ef7966040b7099f7690c7996, type: 2}
   isUpgraded: 0

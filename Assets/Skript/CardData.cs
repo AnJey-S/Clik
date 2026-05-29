@@ -14,6 +14,7 @@ public class CardData : ScriptableObject
 {
     [Header("Основное")]
     public string cardName;
+    public string cardDesription;
     public int cost;
     public CardType cardType;
     public int value;

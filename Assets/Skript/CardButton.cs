@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.U2D;
 
 public class CardButton : MonoBehaviour
 {
@@ -11,7 +12,12 @@ public class CardButton : MonoBehaviour
     private PlayerBuffType buffType;
     private bool isBuff = false;
 
-    [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text cardTitle;
+    [SerializeField] TMP_Text cardCost;
+    [SerializeField] TMP_Text cardDescription;
+
+    public SpriteAtlas Effects;
+    public Image energyIcon;
 
     void Awake()
     {
@@ -25,7 +31,10 @@ public class CardButton : MonoBehaviour
     {
         card = newCard;
         battleManager = manager;
-        text.text = card.data.cardName;
+        cardTitle.text = card.data.cardName;
+        energyIcon.sprite = Effects.GetSprite("powers_194");
+        cardCost.text = card.data.cost.ToString();
+        cardDescription.text = card.data.cardDesription;
     }
 
     // Для экрана награды — карта
@@ -33,10 +42,13 @@ public class CardButton : MonoBehaviour
     {
         cardData = data;
         rewardUI = ui;
-        text.text = data.cardName;
+        cardTitle.text = data.cardName;
+        energyIcon.sprite = Effects.GetSprite("powers_194");
+        cardCost.text = data.cost.ToString();
+        cardDescription.text = data.cardDesription;
 
         if (data.isUpgraded)
-            text.text += "";
+            cardTitle.text += "";
     }
 
     // Для экрана награды — бафф
@@ -45,7 +57,10 @@ public class CardButton : MonoBehaviour
         buffType = buff;
         rewardUI = ui;
         isBuff = true;
-        text.text = GetBuffName(buff);
+        cardTitle.text = GetBuffName(buff);
+        energyIcon.sprite = Effects.GetSprite("blank");
+        cardCost.text = "";
+        cardDescription.text = GetBuffDescription(buff);
     }
 
     private string GetBuffName(PlayerBuffType buff)
@@ -55,12 +70,28 @@ public class CardButton : MonoBehaviour
             case PlayerBuffType.BonusBlock: return "Блок в начале хода";
             case PlayerBuffType.BonusAttack: return "+3 к урону атак";
             case PlayerBuffType.ExtraEnergy: return "+1 энергия";
-            case PlayerBuffType.BonusMaxHP: return "+15 максимального HP";
+            case PlayerBuffType.BonusMaxHP: return "+15 max HP";
             case PlayerBuffType.Thorns: return "Шипы";
             case PlayerBuffType.Regeneration: return "Регенерация";
             case PlayerBuffType.ExtraCard: return "+1 карта в руку";
             case PlayerBuffType.Berserk: return "Берсерк";
             default: return buff.ToString();
+        }
+    }
+
+    private string GetBuffDescription(PlayerBuffType buff)
+    {
+        switch (buff)
+        {
+            case PlayerBuffType.BonusBlock: return "+4 блока";
+            case PlayerBuffType.BonusAttack: return "";
+            case PlayerBuffType.ExtraEnergy: return "";
+            case PlayerBuffType.BonusMaxHP: return "";
+            case PlayerBuffType.Thorns: return "+2 урона врагу от своей атаки";
+            case PlayerBuffType.Regeneration: return "+3 HP в начале хода";
+            case PlayerBuffType.ExtraCard: return "";
+            case PlayerBuffType.Berserk: return "+1 энергия за атаку";
+            default: return "";
         }
     }
 

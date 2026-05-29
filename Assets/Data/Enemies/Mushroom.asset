@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 4214174381351694745, guid: eb30f86f722c2754fa32b81c3ea0f1ae, type: 3}
   attackDamage: 7
   doubleAttackDamage: 7
-  possibleIntensions: 0000000004000000
+  possibleIntensions: 0000000005000000
   buffDamageBonus: 0
   blockAmount: 0
   scale: 0.35

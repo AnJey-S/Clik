@@ -17,8 +17,8 @@ MonoBehaviour:
   maxHP: 150
   sprite: {fileID: -2587105095113992597, guid: ce695833d786f454db056b8785aec26a, type: 3}
   attackDamage: 18
-  doubleAttackDamage: 20
-  possibleIntensions: 00000000030000000100000002000000
+  doubleAttackDamage: 12
+  possibleIntensions: 0000000003000000010000000200000004000000
   buffDamageBonus: 5
   blockAmount: 0
   scale: 0.23

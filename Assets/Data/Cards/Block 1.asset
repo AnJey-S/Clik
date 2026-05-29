@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Block 1
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "\u0411\u043B\u043E\u043A+"
+  cardDesription: "\u0431\u043B\u043E\u043A: 10"
   cost: 1
   cardType: 1
   value: 10

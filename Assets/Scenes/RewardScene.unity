@@ -2013,6 +2013,7 @@ MonoBehaviour:
   rewardCardPool:
   - {fileID: 11400000, guid: ba1e38a6384dc4e48870356d567fd9f5, type: 2}
   - {fileID: 11400000, guid: f5861c96e827e3149aa5746a8dee7aa6, type: 2}
+  - {fileID: 11400000, guid: a25276ac04c175e4c94677184d736d30, type: 2}
   - {fileID: 11400000, guid: 2feb97aa868540c499ff847757014374, type: 2}
   - {fileID: 11400000, guid: dc3158d1ef7966040b7099f7690c7996, type: 2}
   - {fileID: 11400000, guid: d79d921a3444978419ffc939a5e1114e, type: 2}

@@ -110,6 +110,11 @@ public class Enemy : MonoBehaviour
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = attackIntention;
                 break;
+            case EnemyIntention.MultiAttack:
+                intentionText.text = "ATTACK x5";
+                intentionIcon.sprite = attackIntention;
+                intentionIconExtra.sprite = attackIntention;
+                break;
             case EnemyIntention.Block:
                 intentionText.text = "Block";
                 intentionIcon.sprite = blockIntention;
@@ -153,15 +158,26 @@ public class Enemy : MonoBehaviour
             case EnemyIntention.Attack:
                 player.TakeDamage(scaledAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
-                    TakeDamage(2);
+                    TakeDamage(5);
                 break;
             case EnemyIntention.DoubleAttack:
                 player.TakeDamage(scaledDoubleAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
-                    TakeDamage(2);
+                    TakeDamage(5);
                 player.TakeDamage(scaledDoubleAttackDamage + damageBonus);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
-                    TakeDamage(2);
+                    TakeDamage(5);
+                break;
+            case EnemyIntention.MultiAttack:
+                //for (int multiplier = 1; multiplier <= 5; multiplier++)
+                //{
+                //    player.TakeDamage(Mathf.RoundToInt(Mathf.Pow(2, multiplier)) + damageBonus);
+                //    if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
+                //        TakeDamage(5);
+                //}
+                player.TakeDamage((2 + damageBonus) * 5);
+                if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
+                    TakeDamage(5);
                 break;
             case EnemyIntention.Block:
                 enemyBlock += 8;

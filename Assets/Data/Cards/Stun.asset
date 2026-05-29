@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stun
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "\u041E\u0433\u043B\u0443\u0448\u0435\u043D\u0438\u0435"
+  cardDesription: "\u043D\u0430 2 \u0445\u043E\u0434\u0430"
   cost: 2
   cardType: 4
   value: 2
