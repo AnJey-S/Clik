@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
                 intentionIconExtra.sprite = attackIntention;
                 break;
             case EnemyIntention.MultiAttack:
-                intentionText.text = "ATTACK x5";
+                intentionText.text = $"{2+damageBonus}x5";
                 intentionIcon.sprite = attackIntention;
                 intentionIconExtra.sprite = attackIntention;
                 break;
@@ -169,12 +169,6 @@ public class Enemy : MonoBehaviour
                     TakeDamage(5);
                 break;
             case EnemyIntention.MultiAttack:
-                //for (int multiplier = 1; multiplier <= 5; multiplier++)
-                //{
-                //    player.TakeDamage(Mathf.RoundToInt(Mathf.Pow(2, multiplier)) + damageBonus);
-                //    if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
-                //        TakeDamage(5);
-                //}
                 player.TakeDamage((2 + damageBonus) * 5);
                 if (GameManager.Instance.HasBuff(PlayerBuffType.Thorns))
                     TakeDamage(5);
@@ -188,7 +182,7 @@ public class Enemy : MonoBehaviour
                 damageBonus += scaledBuffDamageBonus;
                 break;
             case EnemyIntention.PoisonPlayer:
-                player.AddPoison(4);
+                if (player.Block == 0) player.AddPoison(4);
                 break;
         }
 
