@@ -18,7 +18,7 @@ public class UpgradeManager : MonoBehaviour
     // ----------------------------------------------------------------
     public static UpgradeManager Instance { get; private set; }
 
-    [Header("Пул карт для наград")]
+    [Header("Пул карт для наград")] 
     [SerializeField] private List<CardData> rewardCardPool;
 
     private void Awake()

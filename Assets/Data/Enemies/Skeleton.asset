@@ -20,5 +20,5 @@ MonoBehaviour:
   doubleAttackDamage: 10
   possibleIntensions: 0000000001000000
   buffDamageBonus: 0
-  blockAmount: 0
+  blockAmount: 25
   scale: 0.28

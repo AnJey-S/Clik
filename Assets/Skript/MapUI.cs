@@ -23,6 +23,8 @@ public class MapUI : MonoBehaviour
     //    - verticalSpacing: Вертикальное расстояние между узлами в одной колонке.
     //    - mapGenerator: Ссылка на компонент MapGenerator для генерации карты.
     //    - map: Структура данных, представляющая карту в виде списка списков узлов (колонок и строк).
+    //    - UIIcons: Атлас спрайтов для иконок типов комнат, который должен быть настроен в инспекторе.
+    // 
     // ----------------------------------------------------------------
     [SerializeField] private GameObject nodePrefab;
     [SerializeField] private Transform mapContainer;
