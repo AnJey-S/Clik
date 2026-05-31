@@ -106,7 +106,18 @@
 Видео с демонстрацией геймплея:
 - https://vkvideo.ru/video-239235224_456239017
 
-<img src="Демонстрация/Бой.jpg" width="300" alt="Test">
+<img src="Демонстрация/Главное меню.jpg" width="300" alt="Menu">
+<img src="Демонстрация/Карта.jpg" width="300" alt="Map">
+<img src="Демонстрация/Бой.jpg" width="300" alt="Battle">
+<img src="Демонстрация/Экран награды.jpg" width="300" alt="Reward">
+<img src="Демонстрация/Улучшить карту.jpg" width="300" alt="Upgrade card">
+<img src="Демонстрация/Получить карту.jpg" width="300" alt="Get new card">
+<img src="Демонстрация/Не хватает энергии.jpg" width="300" alt="Energy">
+<img src="Демонстрация/Эффекты на враге.jpg" width="300" alt="Enemy effects">
+<img src="Демонстрация/Выбор баффа.jpg" width="300" alt="Buff">
+<img src="Демонстрация/Босс.jpg" width="300" alt="Boss">
+<img src="Демонстрация/Победа.jpg" width="300" alt="Victory">
+<img src="Демонстрация/Поражение.jpg" width="300" alt="Defeat">
 
 
 ---
