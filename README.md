@@ -107,28 +107,28 @@
 - https://vkvideo.ru/video-239235224_456239017
 
 <p>
-<img src="Демонстрация/Главное меню.jpg" width="330" alt="Menu">
-<img src="Демонстрация/Карта.jpg" width="330" alt="Map">
+<img src="Демонстрация/Главное меню.jpg" width="350" alt="Menu">
+<img src="Демонстрация/Карта.jpg" width="350" alt="Map">
 </p>
 <p>
-<img src="Демонстрация/Бой.jpg" width="330" alt="Battle">
-<img src="Демонстрация/Экран награды.jpg" width="330" alt="Reward">
+<img src="Демонстрация/Бой.jpg" width="350" alt="Battle">
+<img src="Демонстрация/Экран награды.jpg" width="350" alt="Reward">
 </p>
 <p>
-<img src="Демонстрация/Улучшить карту.jpg" width="330" alt="Upgrade card">
-<img src="Демонстрация/Получить карту.jpg" width="330" alt="Get new card">
+<img src="Демонстрация/Улучшить карту.jpg" width="350" alt="Upgrade card">
+<img src="Демонстрация/Получить карту.jpg" width="350" alt="Get new card">
 </p>
 <p>
-<img src="Демонстрация/Не хватает энергии.jpg" width="330" alt="Energy">
-<img src="Демонстрация/Эффекты на враге.jpg" width="330" alt="Enemy effects">
+<img src="Демонстрация/Не хватает энергии.jpg" width="350" alt="Energy">
+<img src="Демонстрация/Эффекты на враге.jpg" width="350" alt="Enemy effects">
 </p>
 <p>
-<img src="Демонстрация/Выбор баффа.jpg" width="330" alt="Buff">
-<img src="Демонстрация/Босс.jpg" width="330" alt="Boss">
+<img src="Демонстрация/Выбор баффа.jpg" width="350" alt="Buff">
+<img src="Демонстрация/Босс.jpg" width="350" alt="Boss">
 </p>
 <p>
-<img src="Демонстрация/Победа.jpg" width="330" alt="Victory">
-<img src="Демонстрация/Поражение.jpg" width="330" alt="Defeat">
+<img src="Демонстрация/Победа.jpg" width="350" alt="Victory">
+<img src="Демонстрация/Поражение.jpg" width="350" alt="Defeat">
 </p>
 
 
